@@ -13,7 +13,7 @@ pipeline {
            steps {
                // Build Docker image with sudo privileges
                script {
-                   sh 'sudo docker build -t imzainazm/nodeapp:latest .'
+                   sh 'docker build -t imzainazm/nodeapp:latest .'
                }
            }
        }
