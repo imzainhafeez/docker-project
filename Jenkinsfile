@@ -9,18 +9,6 @@ pipeline {
           }
       }
 
-      stage('Build with Maven inside Docker') {
-          steps {
-              // Run build steps inside a Docker container with Maven
-              script {
-                  docker.image('maven:3.3.3-jdk-8').inside {
-                      git url: 'https://github.com/imzainazm/docker-project.git', branch: 'develop'
-                      sh 'mvn -B clean install'
-                  }
-              }
-          }
-      }
-
       stage('Build Docker Image') {
           steps {
               // Build Docker image with sudo privileges
