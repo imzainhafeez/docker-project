@@ -1,0 +1,18 @@
+appName: mongodb
+image:
+  name: mongo-express
+mongoexpress:
+  appName: mongo-express
+  imageName: mongo-express
+  imageTag: latest
+data:
+  database_url: mongodb-service
+
+mongo:
+  imageName: mongo
+  imageTag: latest
+
+service:
+  name: mongo-express-service
+  nodePort: 30000
+  
