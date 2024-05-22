@@ -1,6 +1,5 @@
 appName: mongodb
-image:
-  name: mongo-express
+
 mongoexpress:
   appName: mongo-express
   imageName: mongo-express
