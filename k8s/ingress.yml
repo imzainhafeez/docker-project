@@ -20,4 +20,3 @@ spec:
             name: mongodb-service
             port:
               number: 27017
-      
