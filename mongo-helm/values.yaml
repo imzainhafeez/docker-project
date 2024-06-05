@@ -39,6 +39,12 @@ mongodbContainer:
   name: mongodb
   image: mongo
   port: 27017
+  additionalEnv: []
+  # additionalEnv:
+  #   - name: SOME_ENV_VAR
+  #     value: some_value
+  #   - name: ANOTHER_ENV_VAR
+  #     value: another_value
 
 mongodbAdminUsername:
   secretName: mongo-secret
@@ -80,12 +86,19 @@ nodeApp:
       targetPort: 3000
       nodePort: 30022
 
-#you can override the secret values here
 mongo:
   secret:
     name: mongo-secret
     data:
       mongoRootUsernameKey: mongo-root-username
-      mongoRootUsernameValue: dXNlcm5hbWU=
+      mongoRootUsernameValue: YWRtaW4=
       mongoRootPasswordKey: mongo-root-password
       mongoRootPasswordValue: cGFzc3dvcmQ=
+
+
+additionalEnv: []
+  # additionalEnv:
+  #   - name: SOME_ENV_VAR
+  #     value: some_value
+  #   - name: ANOTHER_ENV_VAR
+  #     value: another_value
