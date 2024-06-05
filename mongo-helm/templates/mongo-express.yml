@@ -33,3 +33,9 @@ spec:
             configMapKeyRef:
               name: {{ .Values.configMap.name }}
               key: {{ .Values.configMap.key }}
+        {{- if .Values.additionalEnv }}
+        {{- range .Values.additionalEnv }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+        {{- end }}
