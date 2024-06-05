@@ -32,6 +32,12 @@ spec:
         volumeMounts:
         - name: mongo-storage
           mountPath: {{ .Values.mongodbVolumeClaim.mountPath }}
+        {{- if .Values.mongodbContainer.additionalEnv }}
+        {{- range .Values.mongodbContainer.additionalEnv }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+        {{- end }}
   volumeClaimTemplates:
   - metadata:
       name: mongo-storage
