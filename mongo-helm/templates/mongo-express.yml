@@ -1,51 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-express
-  labels:
-    app: {{ .Values.mongoexpress.appName }}
+  name: {{ .Values.deployment.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.mongoexpress.appName }}
+      app: {{ .Values.deployment.app }}
   template:
     metadata:
       labels:
-        app: {{ .Values.mongoexpress.appName }}
+        app: {{ .Values.deployment.app }}
     spec:
       containers:
-      - name: {{ .Values.mongoexpress.appName }}
-        image: {{ .Values.mongoexpress.imageName }}:{{ .Values.mongoexpress.imageTag }}
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.container.image }}
         ports:
-        - containerPort: 8081
+        - containerPort: {{ .Values.container.port }}
         env:
         - name: ME_CONFIG_MONGODB_ADMINUSERNAME
           valueFrom:
             secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-username
+              name: {{ .Values.adminUsername.secretName }}
+              key: {{ .Values.adminUsername.key }}
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
-          valueFrom: 
+          valueFrom:
             secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-password
+              name: {{ .Values.adminPassword.secretName }}
+              key: {{ .Values.adminPassword.key }}
         - name: ME_CONFIG_MONGODB_SERVER
-          valueFrom: 
+          valueFrom:
             configMapKeyRef:
-              name: mongodb-configmap
-              key: database_url
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.service.name }}
-spec:
-  selector:
-    app: {{ .Values.mongoexpress.appName }}
-  type: LoadBalancer  
-  ports:
-    - protocol: TCP
-      port: 8081
-      targetPort: 8081
-      nodePort: {{ .Values.service.nodePort }}
+              name: {{ .Values.configMap.name }}
+              key: {{ .Values.configMap.key }}
