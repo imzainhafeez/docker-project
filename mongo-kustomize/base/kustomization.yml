@@ -3,6 +3,9 @@ kind: Kustomization
 
 resources:
   - mongo.yml
+  - mongo-service.yml
   - mongo-express.yml
-  - mongo-secret.yml
+  - mongo-express-service.yml
   - mongo-configmap.yml
+  - node-app.yml
+  - node-app-service.yml
