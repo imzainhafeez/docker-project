@@ -1,17 +1,83 @@
-appName: mongodb
-
-mongoexpress:
-  appName: mongo-express
-  imageName: mongo-express
-  imageTag: latest
-data:
-  database_url: mongodb-service
-
-mongo:
-  imageName: mongo
-  imageTag: latest
+configMap:
+  name: mongo-express-config
+  mongodbServer: "mongodb-service"
+  key: ME_CONFIG_MONGODB_SERVER
 
 service:
-  name: mongo-express-service
-  nodePort: 30000
-  
+  name: mongo-express
+  type: NodePort
+  port: 8081
+  targetPort: 8081
+  nodePort: 30021
+  app: mongo-express
+
+deployment:
+  name: mongo-express
+  replicas: 1
+  app: mongo-express
+
+container:
+  name: mongo-express
+  image: mongo-express
+  port: 8081
+
+adminUsername:
+  secretName: mongo-secret
+  key: mongo-root-username
+
+adminPassword:
+  secretName: mongo-secret
+  key: mongo-root-password
+
+mongodbStatefulSet:
+  name: mongodb
+  serviceName: mongodb-service
+  app: mongodb
+  replicas: 1
+
+mongodbContainer:
+  name: mongodb
+  image: mongo
+  port: 27017
+
+mongodbAdminUsername:
+  secretName: mongo-secret
+  key: mongo-root-username
+
+mongodbAdminPassword:
+  secretName: mongo-secret
+  key: mongo-root-password
+
+mongodbVolumeClaim:
+  mountPath: /data/db
+  accessMode: ReadWriteOnce
+  storage: 1Gi
+
+
+mongodbService:
+  name: mongodb-service
+  selector:
+    app: mongodb
+  ports:
+    port: 27017
+    targetPort: 27017
+
+nodeApp:
+  deployment:
+    name: my-app
+    replicas: 1
+  selector:
+    app: my-app
+  container:
+    name: my-app
+    image: imzainazm/nodeapp
+    port: 3000
+  service:
+    name: my-app
+    type: NodePort
+    ports:
+      port: 3000
+      targetPort: 3000
+      nodePort: 30022
+
+#need to create values for mongo-secret.yml
