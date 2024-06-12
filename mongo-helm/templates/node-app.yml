@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.nodeApp.deployment.name }}
+  namespace: {{ .Values.nodeApp.namespace }}
 spec:
   replicas: {{ .Values.nodeApp.deployment.replicas }}
   selector:
@@ -11,6 +12,9 @@ spec:
     metadata:
       labels:
         app: {{ .Values.nodeApp.selector.app }}
+        {{- range $key, $value := .Values.nodeApp.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
     spec:
       containers:
       - name: {{ .Values.nodeApp.container.name }}
