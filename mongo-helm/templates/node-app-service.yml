@@ -5,8 +5,10 @@ metadata:
 spec:
   type: {{ .Values.nodeApp.service.type }}
   ports:
-  - port: {{ .Values.nodeApp.service.ports.port }}
-    targetPort: {{ .Values.nodeApp.service.ports.targetPort }}
-    nodePort: {{ .Values.nodeApp.service.ports.nodePort }}
+    - port: {{ .Values.nodeApp.service.ports.port }}
+      targetPort: {{ .Values.nodeApp.service.ports.targetPort }}
+      {{- if eq .Values.nodeApp.service.type "NodePort" }}
+      nodePort: {{ .Values.nodeApp.service.ports.nodePort }}
+      {{- end }}
   selector:
     app: {{ .Values.nodeApp.selector.app }}
