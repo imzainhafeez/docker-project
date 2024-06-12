@@ -12,6 +12,11 @@ spec:
     metadata:
       labels:
         app: {{ .Values.mongodbStatefulSet.app }}
+        {{- if .Values.mongodbStatefulSet.labels }}
+        {{- range $key, $value := .Values.mongodbStatefulSet.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+        {{- end }}
     spec:
       containers:
       - name: {{ .Values.mongodbContainer.name }}
