@@ -11,6 +11,11 @@ spec:
     metadata:
       labels:
         app: {{ .Values.deployment.app }}
+        {{- if .Values.additionalLabels }}
+        {{- range $key, $value := .Values.additionalLabels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+        {{- end }}
     spec:
       containers:
       - name: {{ .Values.container.name }}
