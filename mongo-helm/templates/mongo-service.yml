@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: {{ .Values.mongodbService.name }}
 spec:
+  type: {{ .Values.mongodbService.type }}
+  ports:
+  - port: {{ .Values.mongodbService.ports.port }}
+    targetPort: {{ .Values.mongodbService.ports.targetPort }}
+    {{- if eq .Values.mongodbService.type "NodePort" }}
+    nodePort: {{ .Values.mongodbService.ports.nodePort }}
+    {{- end }}
   selector:
     app: {{ .Values.mongodbService.selector.app }}
-  ports:
-    - protocol: TCP
-      port: {{ .Values.mongodbService.ports.port }}
-      targetPort: {{ .Values.mongodbService.ports.targetPort }}
