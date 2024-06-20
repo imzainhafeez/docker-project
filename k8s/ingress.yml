@@ -4,13 +4,20 @@ metadata:
   name: mongo-ingress
 spec:
   rules:
-  - host: project.app.internal
+  - host: app.dogimages.fun
     http:
       paths:
-      - path: /
+      - path: /mongo-express
         pathType: Prefix
         backend:
           service:
             name: mongo-express
             port:
               number: 30025
+      - path: /dogsimages
+        pathType: Prefix
+        backend:
+          service:
+            name: my-app
+            port:
+              number: 30021
