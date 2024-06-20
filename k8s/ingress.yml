@@ -4,7 +4,7 @@ metadata:
   name: mongo-ingress
 spec:
   rules:
-  - host: app.dogimages.fun
+  - host: www.dogimages.com
     http:
       paths:
       - path: /mongo-express
