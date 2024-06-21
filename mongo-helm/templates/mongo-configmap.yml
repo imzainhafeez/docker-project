@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.configMap.name }}
 data:
-  ME_CONFIG_MONGODB_SERVER: {{ .Values.configMap.mongodbServer }}
+  ME_CONFIG_MONGODB_SERVER: {{ .Values.configMap.mongodbServer | default "mongodb-service" }}
