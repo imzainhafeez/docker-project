@@ -47,7 +47,7 @@ spec:
   - metadata:
       name: mongo-storage
     spec:
-      accessModes: [ "{{ .Values.mongodbVolumeClaim.accessMode }}" ]
+      accessModes: [ "{{ .Values.mongodbVolumeClaim.accessMode | default "ReadWriteOnce" }}" ]
       resources:
         requests:
           storage: {{ .Values.mongodbVolumeClaim.storage }}
