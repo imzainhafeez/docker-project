@@ -7,17 +7,17 @@ spec:
   - host: www.dogimages.com
     http:
       paths:
-      - path: /mongo-express
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: mongo-express
             port:
-              number: 30025
-      - path: /dogsimages
+              number: 8081
+      - path: /get-profile
         pathType: Prefix
         backend:
           service:
             name: my-app
             port:
-              number: 30021
+              number: 3000
