@@ -1,12 +1,3 @@
-mongo:
-  secret:
-    name: mongo-secret
-    data:
-      mongoRootUsernameKey: mongo-root-username
-      mongoRootUsernameValue: YWRtaW4=
-      mongoRootPasswordKey: mongo-root-password
-      mongoRootPasswordValue: cGFzc3dvcmQ=
-
 configMap:
   mongodbServer: "mongodb-service"
   key: ME_CONFIG_MONGODB_SERVER
