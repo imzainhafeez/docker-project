@@ -9,3 +9,4 @@ resources:
   - mongo-configmap.yml
   - node-app.yml
   - node-app-service.yml
+  - sealed-mongo-secret.yml
