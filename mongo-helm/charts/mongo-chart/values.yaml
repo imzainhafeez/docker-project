@@ -1,0 +1,51 @@
+mongo:
+  secret:
+    name: mongo-secret
+    data:
+      mongoRootUsernameKey: mongo-root-username
+      mongoRootUsernameValue: YWRtaW4=
+      mongoRootPasswordKey: mongo-root-password
+      mongoRootPasswordValue: cGFzc3dvcmQ=
+
+configMap:
+  mongodbServer: "mongodb-service"
+  key: ME_CONFIG_MONGODB_SERVER
+
+mongodbContainer:
+  name: mongodb
+  image: mongo
+  port: 27017
+  additionalEnv: []
+  # additionalEnv:
+  #   - name: SOME_ENV_VAR
+  #     value: some_value
+  #   - name: ANOTHER_ENV_VAR
+  #     value: another_value
+
+mongodbVolumeClaim:
+  mountPath: /data/db
+  # accessMode: ReadWriteOnce
+  storage: 2Gi
+
+
+mongodbService:
+  name: mongodb-service
+  selector:
+    app: mongodb
+  ports:
+    port: 27017
+    targetPort: 27017
+
+mongodbAdminUsername:
+  secretName: mongo-secret
+  key: mongo-root-username
+
+mongodbAdminPassword:
+  secretName: mongo-secret
+  key: mongo-root-password
+
+mongodbStatefulSet:
+  name: mongodb
+  serviceName: mongodb-service
+  app: mongodb
+  replicas: 1
