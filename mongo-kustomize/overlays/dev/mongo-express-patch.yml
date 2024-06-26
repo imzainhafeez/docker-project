@@ -14,3 +14,10 @@ spec:
       containers:
         - name: mongo-express-dev
           image: mongo-express:1-20-alpine3.19
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
