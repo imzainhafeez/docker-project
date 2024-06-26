@@ -1,73 +1,3 @@
-configMap:
-  name: mongo-express-config
-  mongodbServer: "mongodb-service"
-  key: ME_CONFIG_MONGODB_SERVER
-
-service:
-  name: mongo-express
-  type: NodePort
-  port: 8081
-  targetPort: 8081
-  nodePort: 30021
-  app: mongo-express
-
-deployment:
-  name: mongo-express
-  replicas: 1
-  app: mongo-express
-
-container:
-  name: mongo-express
-  image: mongo-express
-  port: 8081
-
-adminUsername:
-  secretName: mongo-secret
-  key: mongo-root-username
-
-adminPassword:
-  secretName: mongo-secret
-  key: mongo-root-password
-
-mongodbStatefulSet:
-  name: mongodb
-  serviceName: mongodb-service
-  app: mongodb
-  replicas: 1
-
-mongodbContainer:
-  name: mongodb
-  image: mongo
-  port: 27017
-  additionalEnv: []
-  # additionalEnv:
-  #   - name: SOME_ENV_VAR
-  #     value: some_value
-  #   - name: ANOTHER_ENV_VAR
-  #     value: another_value
-
-mongodbAdminUsername:
-  secretName: mongo-secret
-  key: mongo-root-username
-
-mongodbAdminPassword:
-  secretName: mongo-secret
-  key: mongo-root-password
-
-mongodbVolumeClaim:
-  mountPath: /data/db
-  accessMode: ReadWriteOnce
-  storage: 1Gi
-
-
-mongodbService:
-  name: mongodb-service
-  selector:
-    app: mongodb
-  ports:
-    port: 27017
-    targetPort: 27017
-
 nodeApp:
   deployment:
     name: my-app
@@ -84,16 +14,7 @@ nodeApp:
     ports:
       port: 3000
       targetPort: 3000
-      nodePort: 30022
-
-mongo:
-  secret:
-    name: mongo-secret
-    data:
-      mongoRootUsernameKey: mongo-root-username
-      mongoRootUsernameValue: YWRtaW4=
-      mongoRootPasswordKey: mongo-root-password
-      mongoRootPasswordValue: cGFzc3dvcmQ=
+      nodePort: 30021
 
 
 additionalEnv: []
