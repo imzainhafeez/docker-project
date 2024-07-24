@@ -16,7 +16,7 @@ spec:
                 name: my-app
                 port:
                   number: 3000
-    - host: www.db.com
+    - host: www.express.com
       http:
         paths:
           - path: /
@@ -26,7 +26,10 @@ spec:
                 name: mongo-express
                 port:
                   number: 8081
-          - path: /mongodb
+    - host: www.mongodb.com
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
