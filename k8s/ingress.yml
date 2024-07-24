@@ -2,22 +2,34 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mongo-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
-      paths:
-      - path: /mongo-express
-        pathType: Prefix
-        backend:
-          service:
-            name: mongo-express-service
-            port:
-              number: 8081
-      - path: /mongo
-        pathType: Prefix
-        backend:
-          service:
-            name: mongodb-service
-            port:
-              number: 27017
-      
+    - host: www.dogimages.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app
+                port:
+                  number: 3000
+    - host: www.db.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mongo-express
+                port:
+                  number: 8081
+          - path: /mongodb
+            pathType: Prefix
+            backend:
+              service:
+                name: mongodb-service
+                port:
+                  number: 27017
