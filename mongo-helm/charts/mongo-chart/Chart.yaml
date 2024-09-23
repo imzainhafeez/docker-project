@@ -1,0 +1,8 @@
+apiVersion: v2
+name: mongo-chart
+description: A sub-chart for mongo
+type: application
+
+version: 0.1.0
+
+appVersion: "1.16.0"
